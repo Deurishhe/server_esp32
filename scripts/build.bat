@@ -1,7 +1,9 @@
 @echo off
 setlocal
 
-set IDF_PATH=%cd%\esp-idf
+set IDF_PATH="%cd%\esp-idf"
+set CONFIG_FILE="..\sdkconfig"
+set CONFIG_LINE=CONFIG_BT_ENABLED=y
 
 if not exist "%IDF_PATH%\export.bat" (
     echo ESP-IDF not found at %IDF_PATH%.
@@ -20,4 +22,10 @@ if not exist build (
 
 cd build
 cmake -G "Ninja" ..
+
+findstr /x /c:"%CONFIG_LINE%" "%CONFIG_FILE%" > nul
+if %errorlevel% neq 0 (
+    echo %CONFIG_LINE% >> "%CONFIG_FILE%"
+)
+
 cmake --build .

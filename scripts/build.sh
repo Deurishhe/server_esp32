@@ -2,6 +2,8 @@
 set -e
 
 IDF_PATH="$(pwd)/esp-idf"
+CONFIG_FILE="../sdkconfig.defaults"
+CONFIG_LINE="CONFIG_BT_ENABLED=y"
 
 if [ ! -f "$IDF_PATH/export.sh" ]; then
     echo "ESP-IDF not found at $IDF_PATH"
@@ -20,4 +22,9 @@ fi
 
 cd build
 cmake ..
+
+if ! grep -q -F -x "$CONFIG_LINE" "$CONFIG_FILE"; then
+    echo "$CONFIG_LINE" >> "$CONFIG_FILE"
+fi
+
 cmake --build .

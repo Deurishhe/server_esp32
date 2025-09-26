@@ -1,8 +1,8 @@
 @echo off
 setlocal
 
-set IDF_VERSION v5.1.2
-set IDF_PATH=%cd%\esp-idf
+set IDF_VERSION="v5.1.2"
+set IDF_PATH="%cd%\esp-idf"
 
 echo Setup ESP-IDF for Windows
 
